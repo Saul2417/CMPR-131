@@ -155,7 +155,84 @@ int option1()
 //Post-Condition
 void option2()
 {
+    int decimalNumber = 0;
 
+    do {
+
+        cout << "\n\t2> Base Converter";
+        cout << "\n\t" << string(80, char(205)) << endl;
+        cout << "\n\t1 > Enter an integer number (base 10)";
+        cout << "\n\t2 > Specify and convert base";
+        cout << "\n\t3 > Display all converted bases (2..36)";
+        cout << "\n\t" << string(80, char(169));
+        cout << "\n\t0 > return to Main Menu";
+        cout << "\n\t" << string(80, char(205)) << endl;
+
+        int option = inputInteger("\n\tOption: ", 0, 3);
+
+        switch (option)
+        {
+
+        case 0: system("cls"); mainMenu(); break;
+        case 1: 
+        {
+            decimalNumber = inputInteger("Enter an integer number of base 10: ", true);
+
+        }break;
+        case 2: 
+        {
+            cout << "Your number is " << decimalNumber << "." << endl;
+
+            int base = inputInteger("Enter the base to convert your number to (2..36): ", 2, 36);
+            string binaryNumber = "";
+
+            if (base == 2)
+            {
+                while (decimalNumber > 0)
+                {
+                    int remainder = decimalNumber % base;
+                    binaryNumber = to_string(remainder) + binaryNumber;
+                    decimalNumber /= base;
+                }
+
+                
+            }
+
+            cout << binaryNumber << endl;
+
+
+            //string binaryNumber = "";
+
+            //while (decimalNumber > 0) {
+            //    int remainder = decimalNumber % 2;
+            //    binaryNumber = to_string(remainder) + binaryNumber;
+            //    decimalNumber /= 2;
+            //    
+            //}
+
+            //cout << binaryNumber << endl;
+
+            //int digit = 0;
+
+            // While the decimal(base 10) number is greater than 0
+            // update digit and baseNum
+            // digit = digit * 10 + the remainder of baseNum / decimalNumber
+            // baseNum = the quotient of baseNum / decimalNumber
+            // Then baseNum is updated in the condition in the while statement.
+            //while (baseNum > 0) {
+            //    digit = digit * 10 + (baseNum % decimalNumber);
+            //    baseNum /= decimalNumber;
+            //}
+
+            //cout << digit << endl;
+
+
+        }break;
+        case 3:  break;
+
+        }
+
+    } while (true);
 
 }
 
