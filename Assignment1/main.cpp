@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <cmath>
 #include "input.h"
 
 using namespace std;
@@ -168,7 +169,7 @@ void numStringWrite(string numString)
     if (!outfile)
     {
         cout << "Cannot Open Test File, test.bin" << endl;
-        return;
+        exit(1);
     }
     outfile.write(reinterpret_cast<char*>(&numString), sizeof(numString));
     outfile.close();
@@ -185,7 +186,7 @@ void numStringRead(string numString)
     if (!infile)
     {
         cout << "Cannot Open Test File, test.bin" << endl;
-        return;
+        exit(1);
     }
     infile.read(reinterpret_cast<char*>(&numString), sizeof(numString));
 
@@ -243,14 +244,15 @@ void baseConversionSingle(int num1)
     }
     int base = inputInteger("Enter the base to convert your number to (2..36): ", 2, 36);
     string binaryNumber = "";
-
-    while (num1 > 0)
+    int temp1 = num1;
+    do
     {
         int remainder = num1 % base;
-        binaryNumber = to_string(remainder) + binaryNumber;
         num1 /= base;
-    }
-    cout << binaryNumber << endl;
+        binaryNumber.insert(0, to_string(remainder));
+    } while (num1 >= base);
+    binaryNumber.insert(0, to_string(num1));
+    cout << temp1 << " (Base of 10) = " << binaryNumber << " (Base of " << base << ")" << endl;
 }
 
 void baseConversionAll(int num1)
@@ -260,17 +262,21 @@ void baseConversionAll(int num1)
             cout << "No integer has been entered. Please Choose option 1 to enter a base 10 integer.";
             return;
         }
+        int tempNum = num1;
         cout << "Your number is " << num1 << "." << endl;
         string binaryNumber = "";
-        for (int base = 2; base <= 32; base++)
+        for (int base = 2; base <= 36; base++)
         {
-            while (num1 > 0)
+            num1 = tempNum;
+            do
             {
                 int remainder = num1 % base;
-                binaryNumber = to_string(remainder) + binaryNumber;
                 num1 /= base;
-            }       
-        cout << binaryNumber << endl;
+                binaryNumber.insert(0, to_string(remainder));
+            } while (num1 >= base);
+            binaryNumber.insert(0, to_string(num1));
+            cout << binaryNumber << " (Base of " << base << ")" << endl;
+            binaryNumber.clear();
         }
 }
 
@@ -282,4 +288,4 @@ void descriptiveStatsMenu()
 }
 
 
-
+// for 3 use cmath
